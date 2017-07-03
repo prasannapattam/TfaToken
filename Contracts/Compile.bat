@@ -1,0 +1,1 @@
+solc --bin --abi --overwrite -o bin EthToken.sol

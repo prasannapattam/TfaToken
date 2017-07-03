@@ -1,0 +1,100 @@
+﻿<html ng-app="lrApp">
+<head>
+    <title>Tools</title>
+</head>
+<body>
+    <div ng-controller="ContractController as contract">
+        <h3>Token Contract</h3>
+        <button ng-click="contract.createToken()">Create Tokens</button><br />
+        <b>Address:</b> {{contract.tokenContractAddress}}
+        <hr />
+        <h3>Process Contract</h3>
+        <input type="text" ng-model="contract.states" style="width:500px" />
+        <br />
+        <button ng-click="contract.registerContract()">Register</button><br />
+        <b>Address:</b> {{contract.processContractAddress}}
+        <hr />
+        <h3>Initiate</h3>
+        <table>
+            <tr>
+                <td>State</td>
+                <td>
+                    <input type="text" ng-model="contract.contractData.state" style="width:300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>Form Code</td>
+                <td>
+                    <input type="text" ng-model="contract.contractData.formCode" style="width:300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>Comments</td>
+                <td>
+                    <input type="text" ng-model="contract.contractData.comments" style="width:300px" />
+                </td>
+            </tr>
+            <tr>
+                <td>Approver</td>
+                <td>
+                    <input type="text" ng-model="contract.contractData.approver" style="width:300px" />
+                </td>
+            </tr>
+        </table>
+        <br />
+        <button ng-click="contract.initiateContract()">Initiate</button>
+    </div>
+
+    <script src="~/scripts/angular.min.js"></script>
+    <script src="~/scripts/abi-decoder.js"></script>
+    <script>
+        angular.module('lrApp', [])
+            .controller('ContractController', function ($http) {
+                var ctrl = this;
+                ctrl.states = "Create,SubmitToManager,SubmitToDirector,Complete";
+                ctrl.processContractAddress = "";
+                ctrl.tokenContractAddress = "";
+                ctrl.contractData = {
+                    state: "SubmitToManager",
+                    formCode: "ABC",
+                    comments: "Comments submitted",
+                    approver: "PPK"
+                }
+
+                ctrl.decode = function () {
+
+                    var tempAbi = JSON.parse(ctrl.abi);
+                    var tempData = ctrl.data;
+
+                    abiDecoder.addABI(tempAbi);
+                    ctrl.decodedData = abiDecoder.decodeMethod(tempData);
+                    console.log(ctrl.decodedData);
+
+                }
+
+                ctrl.createToken = function () {
+                    $http.post("/home/createtoken", { states: ctrl.states })
+                        .then(function (response) {
+                            ctrl.tokenContractAddress = response.data.address;
+                            alert("Tokens Created")
+                        });
+                }
+
+                ctrl.registerContract = function () {
+                    $http.post("/home/registerprocesscontract", { states: ctrl.states })
+                        .then(function (response) { 
+                            ctrl.processContractAddress = response.data.address;
+                            alert("Contract Registered")
+                        });
+                }
+
+                ctrl.initiateContract = function () {
+                    $http.post("/home/initiateprocesscontract", ctrl.contractData)
+                        .then(function () {
+                        alert("Contract Intantiated")
+                    });
+                }
+            });
+    </script>
+</body>
+</html>

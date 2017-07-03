@@ -1,0 +1,20 @@
+{
+  "nonce": "0x0000000000000042",
+  "difficulty": "0x200",
+  "config": {
+    "chainId": 15,
+    "homesteadBlock": 0,
+    "eip155Block": 0,
+    "eip158Block": 0
+  },
+  "alloc": {
+    "0x1e2f51e97f2772dafe59d345bbe48c32a7d2b46b": {
+      "balance": "100000000000000000000000"
+    }
+  },
+  "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "coinbase": "0x1e2f51e97f2772dafe59d345bbe48c32a7d2b46b",
+  "timestamp": "0x00",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "gasLimit": "0x8000000"
+}

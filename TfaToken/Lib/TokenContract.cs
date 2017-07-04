@@ -23,6 +23,14 @@ namespace TfaToken.Lib
             return true;
         }
 
+        public async Task<bool> Transfer()
+        {
+            Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
+
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, );
+            return true;
+        }
+
         private string GetContractCode()
         {
             return File.ReadAllText(Globals.TokenContractCode);

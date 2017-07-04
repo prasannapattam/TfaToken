@@ -60,7 +60,11 @@ namespace TfaToken.Lib
         public static string TokenContractCode { get; } = @"D:\Prasanna\BlockChain\Repos\Samples\TfaToken\Contracts\EthToken.sol";
         public static BigInteger TokenContractGas { get; set; } = 3000000;
         public static BigInteger TokenContractValue { get; set; } = UnitConversion.Convert.ToWei(1000, UnitConversion.EthUnit.Finney);
+        public static BigInteger TokenTransferDeductGas { get; set; } = 30000;
+        public static BigInteger TokenTransferDeductValue { get; set; } = 0;
         public static EthContractData TokenEthData { get; set; } = new EthContractData();
+
+        public static int TokenInitialCredit { get; } = 1000;
 
     }
 }

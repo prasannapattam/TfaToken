@@ -24,7 +24,7 @@ namespace TfaToken.Lib
         {
             Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
 
-            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, Globals.TokenTranferFunction, Globals.CompanyAddress, credits);
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransactionGas, Globals.TokenTransactionValue, Globals.TokenTranferFunction, Globals.CompanyAddress, credits);
             return true;
         }
 
@@ -32,7 +32,15 @@ namespace TfaToken.Lib
         {
             Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
 
-            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, Globals.TokenDeductFunction, Globals.CompanyAddress, credits);
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransactionGas, Globals.TokenTransactionValue, Globals.TokenDeductFunction, Globals.CompanyAddress, credits);
+            return true;
+        }
+
+        public async Task<bool> Kill()
+        {
+            // killing the contract
+            Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransactionGas, Globals.TokenTransactionValue, Globals.TokenKillFunction);
             return true;
         }
 

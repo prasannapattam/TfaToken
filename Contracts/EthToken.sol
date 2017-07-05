@@ -121,14 +121,6 @@ contract EthToken {
 
     function sendEthers(address _to, uint _value) {
         _to.transfer(_value);
-        // Transfer(msg.sender, _to, maxBalanceForAccounts - _to.balance);                   // Notify anyone listening that this transfer took place
-    }
-
-    function fund() payable {
-    }
-
-    function withdraw(uint _value) {
-        owner.transfer(_value);
     }
 
     function kill() {

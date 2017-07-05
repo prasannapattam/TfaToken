@@ -16,7 +16,7 @@ namespace TfaToken.Lib
             {
                 if(Globals.Environment == Environment.Rinkeby)
                 {
-                    return "0x65873e9f02633f8b87ca1896bd811c58ad000a15";
+                    return "0x65873e9f02633F8b87CA1896bD811C58Ad000a15";
                 }
                 else
                 {
@@ -25,18 +25,17 @@ namespace TfaToken.Lib
             }
         }
 
-        public static string CompanyAddress
+        public static string CompanyAddress { get; set; }
+
+        static Globals()
         {
-            get
+            if (Globals.Environment == Environment.Rinkeby)
             {
-                if (Globals.Environment == Environment.Rinkeby)
-                {
-                    return "0x2f2000bbd0e461b21fea55f952d8154e4e2e20f0";
-                }
-                else
-                {
-                    return "0x22D0744A13A8e17904789c8f5271bd7AE74e09c5";
-                }
+                Globals.CompanyAddress = "0x2F2000bbD0e461b21FEA55F952d8154e4E2e20f0";
+            }
+            else
+            {
+                Globals.CompanyAddress = "0x22D0744A13A8e17904789c8f5271bd7AE74e09c5";
             }
         }
 
@@ -61,13 +60,14 @@ namespace TfaToken.Lib
         public static BigInteger TokenContractGas { get; set; } = 3000000;
         public static BigInteger TokenContractValue { get; set; } = UnitConversion.Convert.ToWei(1000, UnitConversion.EthUnit.Finney);
 
-        public static BigInteger TokenTransferDeductGas { get; set; } = 900000;
-        public static BigInteger TokenTransferDeductValue { get; set; } = 0;
+        public static BigInteger TokenTransactionGas { get; set; } = 900000;
+        public static BigInteger TokenTransactionValue { get; set; } = 0;
         public static EthContractData TokenEthData { get; set; } = new EthContractData();
 
         // Token functions
         public const string TokenTranferFunction = "transfer";
         public const string TokenDeductFunction = "deduct";
+        public const string TokenKillFunction = "kill";
         public const int TokenInitialCredits = 100000;
         public const int TokenContractDeduct = 1000;
         public const int TokenTransactionDeduct = 100;

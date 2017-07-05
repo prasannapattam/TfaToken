@@ -8,6 +8,10 @@
         <button ng-click="contract.createToken()">Create Tokens</button><br />
         <b>Address:</b> {{contract.tokenContractAddress}}
         <hr />
+        <h3>Company</h3>
+        <button ng-click="contract.createAccount()">Create Company</button><br />
+        <b>Address:</b> {{contract.companyAccount}}
+        <hr />
         <h3>Buy Tokens</h3>
         <input type="text" ng-model="contract.tokenCredits" style="width:500px" />
         <button ng-click="contract.buyCredits()">Buy</button><br />
@@ -52,6 +56,9 @@
         </table>
         <br />
         <button ng-click="contract.initiateContract()">Initiate</button>
+        <hr />
+        <h3>Kill</h3>
+        <button ng-click="contract.kill()">Kill</button><br />
     </div>
 
     <script src="~/scripts/angular.min.js"></script>
@@ -60,6 +67,7 @@
         angular.module('lrApp', [])
             .controller('ContractController', function ($http) {
                 var ctrl = this;
+                ctrl.company = "";
                 ctrl.states = "Create,SubmitToManager,SubmitToDirector,Complete";
                 ctrl.processContract = {};
                 ctrl.tokenContractAddress = "";
@@ -70,6 +78,14 @@
                     formCode: "ABC",
                     comments: "Comments submitted",
                     approver: "PPK"
+                }
+
+                ctrl.createAccount = function () {
+                    $http.post("/home/createaccount", { states: ctrl.states })
+                        .then(function (response) {
+                            ctrl.companyAccount = response.data;
+                            alert("Account Created")
+                        });
                 }
 
                 ctrl.decode = function () {
@@ -117,6 +133,13 @@
                         .then(function () {
                         alert("Contract Intantiated")
                     });
+                }
+
+                ctrl.kill = function () {
+                    $http.post("/home/kill")
+                        .then(function (response) {
+                            alert("Token Contract Killed")
+                        });
                 }
             });
     </script>

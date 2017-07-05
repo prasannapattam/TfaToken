@@ -21,7 +21,8 @@ namespace TfaToken.Controllers
 
         public async Task<string> CreateAccount()
         {
-            return "";
+            Company company = new Company();
+            return await company.CreateAccount();
         }
 
         public async Task<EthContractData> CreateToken()
@@ -67,6 +68,12 @@ namespace TfaToken.Controllers
             await token.Deduct(Globals.TokenTransactionDeduct);
 
             return true;
+        }
+
+        public async Task<bool> Kill()
+        {
+            TokenContract token = new TokenContract();
+            return await token.Kill();
         }
     }
 }

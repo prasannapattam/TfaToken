@@ -8,11 +8,20 @@
         <button ng-click="contract.createToken()">Create Tokens</button><br />
         <b>Address:</b> {{contract.tokenContractAddress}}
         <hr />
+        <h3>Buy Tokens</h3>
+        <input type="text" ng-model="contract.tokenCredits" style="width:500px" />
+        <button ng-click="contract.buyCredits()">Buy</button><br />
+        <hr />
+        <h3>Deduct Tokens</h3>
+        <input type="text" ng-model="contract.tokenDeducts" style="width:500px" />
+        <button ng-click="contract.deductCredits()">Deduct</button><br />
+        <hr />
         <h3>Process Contract</h3>
         <input type="text" ng-model="contract.states" style="width:500px" />
-        <br />
+        <br />        
         <button ng-click="contract.registerContract()">Register</button><br />
-        <b>Address:</b> {{contract.processContractAddress}}
+        <b>Address:</b> {{contract.processContract.address}} <br />
+        <b>Abi: </b> {{contract.processContract.abi}}
         <hr />
         <h3>Initiate</h3>
         <table>
@@ -52,8 +61,10 @@
             .controller('ContractController', function ($http) {
                 var ctrl = this;
                 ctrl.states = "Create,SubmitToManager,SubmitToDirector,Complete";
-                ctrl.processContractAddress = "";
+                ctrl.processContract = {};
                 ctrl.tokenContractAddress = "";
+                ctrl.tokenCredits = 100000;
+                ctrl.tokenDeducts = 100;
                 ctrl.contractData = {
                     state: "SubmitToManager",
                     formCode: "ABC",
@@ -69,7 +80,6 @@
                     abiDecoder.addABI(tempAbi);
                     ctrl.decodedData = abiDecoder.decodeMethod(tempData);
                     console.log(ctrl.decodedData);
-
                 }
 
                 ctrl.createToken = function () {
@@ -80,10 +90,24 @@
                         });
                 }
 
+                ctrl.buyCredits = function () {
+                    $http.post("/home/buytokens", { tokens: ctrl.tokenCredits })
+                        .then(function (response) {
+                            alert("Coins allocated")
+                        });
+                }
+
+                ctrl.deductCredits = function () {
+                    $http.post("/home/deducttokens", { tokens: ctrl.tokenDeducts })
+                        .then(function (response) {
+                            alert("Coins deducted")
+                        });
+                }
+
                 ctrl.registerContract = function () {
                     $http.post("/home/registerprocesscontract", { states: ctrl.states })
                         .then(function (response) { 
-                            ctrl.processContractAddress = response.data.address;
+                            ctrl.processContract = response.data;
                             alert("Contract Registered")
                         });
                 }

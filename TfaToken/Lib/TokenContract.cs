@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 
 namespace TfaToken.Lib
@@ -14,7 +11,7 @@ namespace TfaToken.Lib
 
             Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
             await contract.Register(code, Globals.TokenContractName, Globals.TokenContractGas, Globals.TokenContractValue,
-                "10000000", "TfaToken", 2, "TFA"
+                Globals.TokenInitialSupply, Globals.TokenName, Globals.TokenDecimalUnits, Globals.TokenSymbol
                 );
 
             // setting the static variables
@@ -23,11 +20,19 @@ namespace TfaToken.Lib
             return true;
         }
 
-        public async Task<bool> Transfer()
+        public async Task<bool> Transfer(int credits = Globals.TokenInitialCredits)
         {
             Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
 
-            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, );
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, Globals.TokenTranferFunction, Globals.CompanyAddress, credits);
+            return true;
+        }
+
+        public async Task<bool> Deduct(int credits)
+        {
+            Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
+
+            await contract.SendTransaction(Globals.TokenEthData.Abi, Globals.TokenEthData.Address, Globals.TokenTransferDeductGas, Globals.TokenTransferDeductValue, Globals.TokenDeductFunction, Globals.CompanyAddress, credits);
             return true;
         }
 

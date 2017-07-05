@@ -19,6 +19,11 @@ namespace TfaToken.Controllers
             return View();
         }
 
+        public async Task<string> CreateAccount()
+        {
+            return "";
+        }
+
         public async Task<EthContractData> CreateToken()
         {
             TokenContract token = new TokenContract();
@@ -26,11 +31,29 @@ namespace TfaToken.Controllers
             return Globals.TokenEthData;
         }
 
+        public async Task<bool> BuyTokens([FromBody] TokenCredits credits)
+        {
+            TokenContract token = new TokenContract();
+            await token.Transfer(credits.Tokens);
+            return true;
+        }
+
+        public async Task<bool> DeductTokens([FromBody] TokenCredits credits)
+        {
+            TokenContract token = new TokenContract();
+            await token.Deduct(credits.Tokens);
+            return true;
+        }
+
         // publish
         public async Task<EthContractData> RegisterProcessContract([FromBody] ProcessContractRegisterData data)
         {
             ProcessContract process = new ProcessContract();
             await process.RegisterContract(data.States);
+
+            TokenContract token = new TokenContract();
+            await token.Deduct(Globals.TokenContractDeduct);
+
             return Globals.ProcessEthData;
         }
 
@@ -39,6 +62,10 @@ namespace TfaToken.Controllers
         {
             ProcessContract process = new ProcessContract();
             await process.Intantiate(data.State, data.FormCode, data.Comments, data.Approver);
+
+            TokenContract token = new TokenContract();
+            await token.Deduct(Globals.TokenTransactionDeduct);
+
             return true;
         }
     }

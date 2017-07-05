@@ -1,12 +1,11 @@
-﻿using Nethereum.Geth;
-using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Nethereum.Geth;
+using Nethereum.Hex.HexTypes;
 
 namespace TfaToken.Lib
 {

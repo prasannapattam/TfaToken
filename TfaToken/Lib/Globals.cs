@@ -1,10 +1,5 @@
-﻿using Nethereum.Geth;
+﻿using System.Numerics;
 using Nethereum.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Numerics;
 
 namespace TfaToken.Lib
 {
@@ -25,7 +20,7 @@ namespace TfaToken.Lib
                 }
                 else
                 {
-                    return "0x1e2f51e97f2772dafe59d345bbe48c32a7d2b46b";
+                    return "0x1e2F51E97f2772dafE59d345BBE48C32A7d2B46b";
                 }
             }
         }
@@ -40,13 +35,13 @@ namespace TfaToken.Lib
                 }
                 else
                 {
-                    return "0x22d0744a13a8e17904789c8f5271bd7ae74e09c5";
+                    return "0x22D0744A13A8e17904789c8f5271bd7AE74e09c5";
                 }
             }
         }
 
         // Process variables
-        public static string ProcessContractName { get; } = "Process";
+        public const string ProcessContractName = "Process";
         public static BigInteger ProcessContractGas { get; set; } = 300000;
         public static BigInteger ProcessContractValue { get; set; } = 0;
 
@@ -56,15 +51,25 @@ namespace TfaToken.Lib
         public static EthContractData ProcessEthData { get; set; } = new EthContractData();
 
         // Token variables
+        public const string TokenName = "TfaToken";
+        public const string TokenSymbol = "TFA";
+        public const int TokenInitialSupply = 10000000;
+        public const int TokenDecimalUnits = 2;
+
         public static string TokenContractName { get; } = "EthToken";
-        public static string TokenContractCode { get; } = @"D:\Prasanna\BlockChain\Repos\Samples\TfaToken\Contracts\EthToken.sol";
+        public const string TokenContractCode = @"D:\Prasanna\BlockChain\Repos\Samples\TfaToken\Contracts\EthToken.sol";
         public static BigInteger TokenContractGas { get; set; } = 3000000;
         public static BigInteger TokenContractValue { get; set; } = UnitConversion.Convert.ToWei(1000, UnitConversion.EthUnit.Finney);
-        public static BigInteger TokenTransferDeductGas { get; set; } = 30000;
+
+        public static BigInteger TokenTransferDeductGas { get; set; } = 900000;
         public static BigInteger TokenTransferDeductValue { get; set; } = 0;
         public static EthContractData TokenEthData { get; set; } = new EthContractData();
 
-        public static int TokenInitialCredit { get; } = 1000;
-
+        // Token functions
+        public const string TokenTranferFunction = "transfer";
+        public const string TokenDeductFunction = "deduct";
+        public const int TokenInitialCredits = 100000;
+        public const int TokenContractDeduct = 1000;
+        public const int TokenTransactionDeduct = 100;
     }
 }

@@ -9,7 +9,7 @@ namespace TfaToken.Lib
         {
             string code = this.GetContractCode(states);
 
-            Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
+            Contract contract = new Contract(Globals.CompanyAddress, Globals.Password);
             await contract.Register(code, Globals.ProcessContractName, Globals.ProcessContractGas, Globals.ProcessContractValue);
 
             // setting the static variables
@@ -20,7 +20,7 @@ namespace TfaToken.Lib
 
         public async Task Intantiate(string state, string formCode, string comments, string approver)
         {
-            Contract contract = new Contract(Globals.AccountAddress, Globals.Password);
+            Contract contract = new Contract(Globals.CompanyAddress, Globals.Password);
             await contract.SendTransaction(Globals.ProcessEthData.Abi, Globals.ProcessEthData.Address, Globals.ProcessTransactionGas, Globals.ProcessTransactionValue, state, formCode, comments, approver);
         }
 

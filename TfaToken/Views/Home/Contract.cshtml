@@ -81,7 +81,7 @@
                 }
 
                 ctrl.createAccount = function () {
-                    $http.post("/home/createaccount", { states: ctrl.states })
+                    $http.post("/home/createaccount")
                         .then(function (response) {
                             ctrl.companyAccount = response.data;
                             alert("Account Created")

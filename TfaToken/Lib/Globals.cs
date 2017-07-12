@@ -36,6 +36,7 @@ namespace TfaToken.Lib
             else
             {
                 Globals.CompanyAddress = "0x22D0744A13A8e17904789c8f5271bd7AE74e09c5";
+                //Globals.CompanyAddress = "0x4E6814370FFa7Bc60f7f617bd269F1C4e8fA57BB";
             }
         }
 
@@ -50,9 +51,9 @@ namespace TfaToken.Lib
         public static EthContractData ProcessEthData { get; set; } = new EthContractData();
 
         // Token variables
-        public const string TokenName = "TfaToken";
+        public const string TokenName = "Transfora Coin";
         public const string TokenSymbol = "TFA";
-        public const int TokenInitialSupply = 10000000;
+        public const int TokenInitialSupply = 100000000;
         public const int TokenDecimalUnits = 2;
 
         public static string TokenContractName { get; } = "EthToken";

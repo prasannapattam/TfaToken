@@ -1,6 +1,6 @@
 // Dev chain
  var accountAddress = "0x1e2F51E97f2772dafE59d345BBE48C32A7d2B46b";
- var companyAddress = "0x22D0744A13A8e17904789c8f5271bd7AE74e09c5";
+ var companyAddress = "0x89DF12419Fe775936c78bcE47a9473BAaD8cF17e";
 
 // Rinkeby
 // var accountAddress = "0x65873e9f02633f8b87ca1896bd811c58ad000a15";
@@ -31,7 +31,7 @@ var token = contract.new(10000000, "TfaToken", 2, "TFA", {
 // token related commands
 
 // initial transfer of 1000 tokens
-token.transfer(companyAddress, 100000, { from: accountAddress });
+token.transfer(companyAddress, 100000, { from: accountAddress}, function(err) { console.log(err); });
 
 // checking balances
 eth.getBalance(companyAddress);

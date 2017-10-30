@@ -21,8 +21,9 @@ namespace TfaToken.Controllers
 
         public async Task<string> CreateAccount()
         {
-            Company company = new Company();
-            return await company.CreateAccount();
+            //Company company = new Company();
+            //return await company.CreateAccount();
+            return "New Account";
         }
 
         public async Task<EthContractData> CreateToken()
@@ -49,24 +50,28 @@ namespace TfaToken.Controllers
         // publish
         public async Task<EthContractData> RegisterProcessContract([FromBody] ProcessContractRegisterData data)
         {
-            ProcessContract process = new ProcessContract();
-            await process.RegisterContract(data.States);
+            /*
+                        ProcessContract process = new ProcessContract();
+                        await process.RegisterContract(data.States);
 
-            TokenContract token = new TokenContract();
-            await token.Deduct(Globals.TokenContractDeduct);
+                        TokenContract token = new TokenContract();
+                        await token.Deduct(Globals.TokenContractDeduct);
 
-            return Globals.ProcessEthData;
+                        return Globals.ProcessEthData;
+            */
+            return new EthContractData() { Abi = "abi", Address = "address", ByteCode = "bytecode" };
         }
 
         // approve & initiate
         public async Task<bool> InitiateProcessContract([FromBody] ProcessContractData data)
         {
+/*
             ProcessContract process = new ProcessContract();
             await process.Intantiate(data.State, data.FormCode, data.Comments, data.Approver);
 
             TokenContract token = new TokenContract();
             await token.Deduct(Globals.TokenTransactionDeduct);
-
+*/
             return true;
         }
 
